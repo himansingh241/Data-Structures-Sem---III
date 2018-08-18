@@ -1,42 +1,42 @@
 #include<iostream>
 using namespace std;
 
-// Lower Triangular matrix stored row wise.
-class Lmatrix
+class Tridimensional
 {
     int size, *arr;
     public:
-    Lmatrix(int s = 0)
+    Tridimensional(int s)
     {
         if (s < 0)
-            throw "Invalid size";
+            throw "Invalid Size";
         size = s;
-        arr = new int[s * (s + 1) / 2];
+        arr = new int[size + 2 * (size - 1)];
     }
 
     void set(int i, int j, int value)
     {
         if (i <= 0 || j <= 0 || i > size || j > size)
             throw "Invalid Index";
-        if (i < j && value != 0)
+        if (i != j || i != j - 1 || j != i - 1 && value != 0)
             throw "Invalid Index";
-        int k = i * (i - 1) / 2 + (j - 1);
-        arr[k] = value;
+        if (i == j || i == j - 1 || j == i - 1)
+        {
+            int k = 2 + 3 * (i - 2) + (j - i - 1);
+            arr[k] = value;
+        }
     }
 
     int get(int i, int j)
     {
         if (i <= 0 || j <= 0 || i > size || j > size)
             throw "Invalid Index";
-        int data;
-        if (i < j)
-            data = 0;
-        else
-            data = arr[i * (i - 1) / 2 + (j - 1)];
+        int data = 0;
+        if (i == j || i == j - 1 || j == i - 1)
+            data = arr[2 + 3 * (i - 2) + (j - i - 1)];
         return data;
     }
 
-    ~Lmatrix()
+    ~Tridimensional()
     {
         delete[] arr;
     }
@@ -48,7 +48,7 @@ int main()
     cin >> size;
     try
     {
-        Lmatrix obj(size);
+        Tridimensional obj(size);
         for (int i = 1; i <= size; i++)
             for (int j = 1; j <= size; j++)
             {

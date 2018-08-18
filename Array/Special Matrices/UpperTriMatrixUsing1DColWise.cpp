@@ -1,12 +1,12 @@
 #include<iostream>
 using namespace std;
 
-// Lower Triangular matrix stored row wise.
-class Lmatrix
+// Upper Triangular matrix stored column wise in 1D matrix.
+class Umatrix
 {
     int size, *arr;
     public:
-    Lmatrix(int s = 0)
+    Umatrix(int s = 0)
     {
         if (s < 0)
             throw "Invalid size";
@@ -18,25 +18,26 @@ class Lmatrix
     {
         if (i <= 0 || j <= 0 || i > size || j > size)
             throw "Invalid Index";
-        if (i < j && value != 0)
+        if (i > j && value != 0)
             throw "Invalid Index";
-        int k = i * (i - 1) / 2 + (j - 1);
-        arr[k] = value;
+        if (i <= j)
+        {    
+            int k = (i - 1) + (j * (j - 1) / 2);
+            arr[k] = value;
+        }
     }
 
     int get(int i, int j)
     {
         if (i <= 0 || j <= 0 || i > size || j > size)
             throw "Invalid Index";
-        int data;
-        if (i < j)
-            data = 0;
-        else
-            data = arr[i * (i - 1) / 2 + (j - 1)];
+        int data = 0;
+        if (i <= j)
+            data = arr[(i - 1) + (j * (j - 1) / 2)];
         return data;
     }
 
-    ~Lmatrix()
+    ~Umatrix()
     {
         delete[] arr;
     }
@@ -48,7 +49,7 @@ int main()
     cin >> size;
     try
     {
-        Lmatrix obj(size);
+        Umatrix obj(size);
         for (int i = 1; i <= size; i++)
             for (int j = 1; j <= size; j++)
             {

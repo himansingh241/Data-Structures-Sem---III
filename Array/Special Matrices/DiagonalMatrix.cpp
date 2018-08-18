@@ -1,42 +1,42 @@
 #include<iostream>
 using namespace std;
 
-// Lower Triangular matrix stored row wise.
-class Lmatrix
+class DiagonalMatrix
 {
     int size, *arr;
     public:
-    Lmatrix(int s = 0)
+    DiagonalMatrix(int s)
     {
-        if (s < 0)
+        if (size < 0)
             throw "Invalid size";
         size = s;
-        arr = new int[s * (s + 1) / 2];
+        arr = new int[s];
     }
 
     void set(int i, int j, int value)
     {
         if (i <= 0 || j <= 0 || i > size || j > size)
             throw "Invalid Index";
-        if (i < j && value != 0)
-            throw "Invalid Index";
-        int k = i * (i - 1) / 2 + (j - 1);
-        arr[k] = value;
+        if (i != j && value != 0)
+            throw "Invalid postion to assign";
+        if (i == j)
+        {
+            int k = i - 1;
+            arr[k] = value;
+        }
     }
 
     int get(int i, int j)
     {
         if (i <= 0 || j <= 0 || i > size || j > size)
             throw "Invalid Index";
-        int data;
-        if (i < j)
-            data = 0;
-        else
-            data = arr[i * (i - 1) / 2 + (j - 1)];
+        int data = 0;
+        if (i == j)
+            data = arr[i - 1];
         return data;
     }
 
-    ~Lmatrix()
+    ~DiagonalMatrix()
     {
         delete[] arr;
     }
@@ -48,7 +48,7 @@ int main()
     cin >> size;
     try
     {
-        Lmatrix obj(size);
+        DiagonalMatrix obj(size);
         for (int i = 1; i <= size; i++)
             for (int j = 1; j <= size; j++)
             {
