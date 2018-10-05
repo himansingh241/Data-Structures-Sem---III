@@ -1,0 +1,85 @@
+#include<iostream>
+
+using namespace std;
+
+struct node{
+    int data;
+    node *left;
+    node *right;
+
+};
+void insertleft(node *r, int value)
+{
+    node *p = new node;
+    p->data = value;
+    p->left = NULL;
+    p->right = NULL;
+    cout<<value<<endl;
+}
+
+void insertright(node *r, int value)
+{
+    node *p = new node;
+    p->data = value;
+    p->left = NULL;
+    p->right = NULL;
+    cout<<value<<endl;
+}
+
+void inOrderPrint(node *root2)
+{
+  if (root2->left != NULL) inOrderPrint(root2->left);   //traverse left if exists
+  cout<<root2->data;                                 //record root
+  if (root2->right != NULL) inOrderPrint(root2->right); //traverse right if exists
+}
+
+int main(){
+
+int n;
+
+cout<<"Enter the no. of values to store";
+cin>>n;
+int arr[n];
+cout<<"Enter the values";
+for(int i=0; i<n; i++)
+{
+    cin>>arr[i];
+}
+
+
+node *root = new node;
+root->data = arr[0];
+root->left = NULL;
+root->right = NULL;
+node *roottemp;
+roottemp= root;
+
+
+for(int i=1; i<n; i++){
+    xy:
+    if(arr[i]<(root->data)){
+        if(root->left==NULL)
+            insertleft(root,arr[i]);
+        else
+            {root=root->left;
+            goto xy;}
+
+    }
+
+    else if(arr[i]>(root->data)){
+        if(root->right==NULL)
+            insertright(root,arr[i]);
+        else
+            {root=root->right;
+            goto xy;}
+
+    }
+
+}
+
+inOrderPrint(root);
+
+
+
+
+}
