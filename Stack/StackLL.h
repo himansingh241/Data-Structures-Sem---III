@@ -1,6 +1,19 @@
 #include<iostream>
-#include"Node.h"
+
 using namespace std;
+
+template<typename T>
+class Node
+{
+    public:
+    T value;
+    Node* next;
+    Node(T value = 0, Node* n = NULL)
+    {
+        this -> value = value;
+        next = n;
+    }
+};
 
 template<typename T>
 class StackLL

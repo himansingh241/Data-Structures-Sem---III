@@ -51,6 +51,7 @@ class SLL
     void reverse();
 };
 
+// Copy constructor to avoid shallow copy.
 template<typename T>
 SLL<T>::SLL(SLL &obj)
 {
